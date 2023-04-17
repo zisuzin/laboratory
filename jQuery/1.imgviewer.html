@@ -22,24 +22,195 @@
 
         .imgbx {
             position: absolute;
-            background-color: #000;
-            width: 3000px;
-            height: 1999px;
+            background: #000;
+            background-repeat: no-repeat;
+            /* background: url(./img/city.jpg) no-repeat; */
+            transition: all 2s ease;
+            width: 2000px;
+            height: 1200px;
         }
 
-        .viewer {
+        .mover {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
         }
+        
+        .img_item2 > img,
+        .img_item3 > img,
+        .img_item4 > img,
+        .img_item5 > img,
+        .img_item6 > img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .img_item1 {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            /* border: 1px solid red; */
+        }
+
+        .img_item2 {
+            position: absolute;
+            width: 12vw;
+            height: 15vw;
+            top: 30%;
+            left: 35%;
+        }
+
+        .img_item3 {
+            position: absolute;
+            width: 12vw;
+            height: 15vw;
+            top: 52%;
+            left: 20%;
+        }
+
+        .img_item4 {
+            position: absolute;
+            width: 15vw;
+            height: 18vw;
+            top: 53%;
+            right: 14%;
+        }
+
+        .img_item5 {
+            position: absolute;
+            width: 10vw;
+            height: 12vw;
+            top: 40%;
+            right: 30%;
+        }
+
+        .img_item6 {
+            position: absolute;
+            width: 12vw;
+            height: 14vw;
+            top: 20%;
+            right: 15%;
+        }
+        
+        .main-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .main-logo > img {
+            width: 22vw;
+        }
+
     </style>
+    <script src="./jquery-3.6.0.min.js"></script>
+    <script src="./jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+            
+        $(()=>{
+            // 1. 대상선정
+            // (1) 이미지박스
+            const imgbx = $(".imgbx"); 
+            const mover = $(".mover"); 
+
+            // 2. 처음에 정중앙 위치하기
+            // (1) 중앙위치 top값 - (윈도화면높이 - 이미지박스높이) / 2
+            let cTop = ($(window).height() - imgbx.height()) / 2;  
+            // (1) 중앙위치 left값 - (윈도화면가로폭 - 이미지박스가로폭) / 2
+            let cLeft = ($(window).width() - imgbx.width()) / 2;
+        
+            // 3. 이미지박스 중앙위치하기
+            imgbx.css({
+            top: cTop + "px",
+            left: cLeft + "px",
+            });
+
+            // 4. 이미지박스 움직일 값을 위한 비례식만들기
+            // 마우스최대값 : 마우스이동값 = 이미지이동최대값
+            // 마최 : 아이 = 이최 : 이이
+            // 이이 = 마이 * 이최 / 마최
+
+            // 이미이동최대값(이최) top, left
+            let iTopM = $(window).height() - imgbx.height();
+            let iLeftM = $(window).width() - imgbx.width();
+
+            // 마우스최대이동값(마최) top, left
+            let mTopM = $(window).height();
+            let mLeftM = $(window).width();
+
+            // 마우스이동값(마이) -> 대상에서 pageX, pageY 이벤트 마우스 포인터 위치값으로 구함!
+            // 이벤트 대상 : .mover -> mover변수
+            let mPosX, mPosY;
+
+        // 5. 위의 비례식에 맞게 실제 이동값으로 적용하기
+        // 이벤트 대상 : .mover -> mover변수
+        mover.mousemove(function(e){
+            // 1. 마우스 위치값 구하기
+            mPosX = e.pageX;
+            mPosY = e.pageY;
+            // console.log(`x:${mPosX}\ny:${mPosY}`);
+            
+            // 2. 비례식 계산 적용하기
+            // 이이 = 마이 * 이최 / 마최    
+            // 마이 = mPosX, mPosY; 
+            // 마최 -> mTopMax, mLeftMax    
+            // 이최 -> iTopMax, iLeftMax    
+
+            // 이미지 y축이동값 : 마이 * 이최 / 마최
+            let iPosY = mPosY * iTopM / mTopM;
+            
+            // 이미지 x축이동값 : 마이 * 이최 / 마최
+            let iPosX = mPosX * iLeftM / mLeftM;
+            
+            // 3. 실제 이미지 위치이동 적용하기
+            imgbx.css({
+                top: iPosY + "px",
+                left: iPosX + "px",
+            });
+
+            $(".img_item1 > img").ripples({
+                resolution: 256, // 렌더링 값이 클수록 잔물결 효과가 느리게 전파
+                perturbance: 0.04, // 잔물경 굴절 강도. 0은 굴절 없음
+            });
+
+        });
+    });
+        
+    </script>
 </head>
 <body>
     <div id="wrap">
-        <div class="imgbx"></div>
-        <div class="viewer"></div>
+        <div class="imgbx">
+            <div class="img_item1">
+                <img src="./img/img1.jfif" alt="작품이미지">
+            </div>
+            <div class="img_item2">
+                <img src="./img/img2.jfif" alt="작품이미지">
+            </div>
+            <div class="img_item3">
+                <img src="./img/img3.jpg" alt="작품이미지">
+            </div>
+            <div class="img_item4">
+                <img src="./img/img4.jpg" alt="작품이미지">
+            </div>
+            <div class="img_item5">
+                <img src="./img/img5.jpg" alt="작품이미지">
+            </div>
+            <div class="img_item6">
+                <img src="./img/img6.jpg" alt="작품이미지">
+            </div>
+        </div>
+        <div class="mover">
+            <div class="main-logo">
+                <img src="./img/art_logo.svg" alt="메인로고">
+            </div>
+        </div>
     </div>
 </body>
 </html>
