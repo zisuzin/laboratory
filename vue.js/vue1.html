@@ -15,8 +15,14 @@
                 el:'#app1',
                 // el - 요소를 선택하는 속성(element)
                 data:{
-                    iam:"나는 프론트엔드 개발자다!",
+                    message:"뷰JS 입문!",
                     yo:"요",
+                },
+                methods:{
+                    chgTxt: function() {
+                        this.message = "너는 누구냐?";
+                        this.yo = "헐";
+                    }
                 }
                 // data - 선택요소 내부에 사용할 데이터 셋팅 속성
             }); // Vue //
@@ -29,9 +35,23 @@
             new Vue({
             el: '#app2',
             data: {
-                menList: ["김수현","공유","송강","서강준"]
-            }
+                menList: ["김수현","공유","송강","서강준"],
+                goods: [
+                    {
+                        상품명:"나이키",
+                        코드:"nike2022",
+                        가격:"155,000원"
+                    },
+                    {
+                        상품명:"프로스펙스",
+                        코드:"pros2022",
+                        가격:"120,000원"
+                    },
+
+                ]
+            } // #app2 Vue
         }); // Vue //
+
             // 3. 이벤트 사용하기
             new Vue({
                 el: '#app3',
@@ -51,15 +71,47 @@
                             // this는 뷰객체
                             // $el 선택된요소
                             this.$el.innerHTML += `
-                            <div id="my">하하하</div>
+                            <div>하하하</div>
                             `
                         },4000);
-                    }
-                }
+                    },
+                    myOver: function(){
+                        // 현재이벤트 대상
+                        let cevt = event.target;
+                        // 오버된 버튼 글자바꾸기
+                        cevt.innerText = "오버하지마~!";
+                        // 2초후 버튼글자 또 바꾸기
+                        setTimeout(() => {
+                            cevt.innerText = "클릭해봐!";
+                        }, 2000);
+                    }, ///////// myOver /////////
+                    myClick2: function(txt){// txt 전달변수
+                        // 기존 인스턴스 루트요소에 html넣기!
+                        this.$el.innerHTML += `<h1>내가 ${txt}야!</h1>`;
+                    } ///////// myClick2 ///////////
+                } // #app3 Vue
                 // methods 속성은 함수기능을 구현하여 할당함!
             }); // Vue //
+
             // 4. 입력 양식과 동기화하기
+            new Vue({
+                // 대상선정
+                el: "#app4",
+                data:{
+                    msg: "여기에 입력해봐요~!"
+                }
+            }); // #app4 Vue
+
             // 5. 조건분기
+            new Vue({
+                el: "#app5",
+                data:{
+                    show: false 
+                    // show 변수에 false를 담고 이것을
+                    // v-if 조건문 디렉티브에 사용하면
+                    // true이면 출력하고 false이면 아예지운다!
+                }
+            });
         }); // 로그구역()
     </script>
 </head>
@@ -68,10 +120,11 @@
 
     <hr>
 
-    <h2>1. 텍스트 바인딩(binding->데이터넣기)</h2>
+    <h2>1. 텍스트 바인딩</h2>
     <div id="app1">
-        <p> {{iam}} </p>
+        <p> {{message}} </p>
         <p> 세상은{{yo}} 너희가{{yo}} 아는바{{yo}} 그 세상이{{yo}} 아니란다!{{yo}} </p>
+        <button v-on:click="chgTxt">변경하기</button>
     </div>
 
     <hr>
@@ -94,11 +147,18 @@
                 (directive 는 지시,명령의 단어임)
              -->
         </ol>
+        <!-- 배열안에 반복되는 객체데이터 찍기 -->
+        <ul v-for="(item,i) in goods">
+            {{"아이템번호 : " + (i+1)}}
+            <li v-for="(val,name) in item">
+                {{name + ":" + val}}
+            </li>
+        </ul>
     </div>
 
     <hr>
 
-    <h2>3. 이벤트 사용하기</h2>
+    <h2>3. 이벤트 사용하기</h2> <!-- 여기서부터 포스팅 필요 -->
     <div id="app3">
         <button v-on:click="myClick">클릭해봐!</button>
     </div>
@@ -107,18 +167,39 @@
         이벤트와 함수를 연결해주는 뷰JS속성
         값은 내가 만든 metchods 안의 함수명을 써준다!
      -->
+     <button @mouseover="myOver" @click="myClick2('후계자')">오버해봐!</button>
     <hr>
 
     <h2>4. 입력 양식과 동기화하기</h2>
     <div id="app4">
-        
+        <input type="text" v-model="msg">
+        <!-- 
+            v-model 디렉티브 속성은 요소 자신의 값이
+            타겟 값으로 반영되게해준다!
+            변경 데이터의 뷰JS의 동기화 기능을 확인!
+         -->
+        <p>
+            {{msg}}
+        </p>
     </div>
 
     <hr>
 
     <h2>5. 조건분기</h2>
     <div id="app5">
-
+        <button @click="show=!show">뒤집어!{{show}}</button>
+        <p>
+            나는 사실 사람이 아니다!
+            <span v-if="show">뻥이요~!</span>
+            <!-- 
+                v-if 조건문 디렉티브
+                -> 값으로쓴 조건에 따라
+                해당 요소가 화면에 출력될지
+                출력하지 않을지를 결정할 수 있다!
+                (결과적으로 가상돔에서 출력을 안하면
+                실제 돔에서는 태그를 그리지 않게 된다!)
+             -->
+        </p>
     </div>
 </body>
 </html>
