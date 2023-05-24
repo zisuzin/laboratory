@@ -17,7 +17,18 @@
         console.log(map2)
 
         // 원하는 객체 값 추출
-        let fruit 
+        let fruit = [
+            {color: "yellow", name: "banana"},
+            {color: "red", name: "tomato"},
+            {color: "orange", name: "grape"},
+            {color: "red", name: "apple"},
+        ]
+
+        let fruitColor = fruit.map((item)=> item.color);
+        console.log(fruitColor)
+
+        // map 함수를 이용하여 객체 데이터 추출
+        const colors = ["yellow"]
     </script>
 </head>
 <body>
