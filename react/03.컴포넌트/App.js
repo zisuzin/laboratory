@@ -10,6 +10,7 @@ function App() {
     return (
         <div>
             <Header></Header>
+            <Header></Header>
             <nav>
             <ul>
                 <li>
@@ -31,5 +32,3 @@ function App() {
     )
         
 }
-
-export default App;
