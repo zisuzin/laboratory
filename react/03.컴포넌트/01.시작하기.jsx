@@ -73,10 +73,27 @@ function MyFirstReact(){
             <Info idx="1" name="코알라"/> {/* Info태그에 정의된 속성들을 props 객체로 전달 */}
             <Info idx="2" name="하마"/>
             <Info idx="3" name="기린"/>
+            <App/>
         </div>
     );
 
 } ////////////// MyFirstReact 함수 ////////////
+
+function App(){
+    const [counter, setCounter] = React.useState(0);
+    console.log(React.useState)
+
+    const onClick = () => {
+        setCounter(counter + 1);
+    };
+    
+    return (
+        <div>
+            <h3>Total clicks: {counter}</h3>
+            <button onClick={onClick}>Click me!</button>
+        </div>
+    )
+}
 
 ReactDOM.render(
 <MyFirstReact />,
