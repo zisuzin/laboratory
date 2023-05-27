@@ -86,7 +86,8 @@ function App(){ // 첫번째 요소 - 상태변수의 현재값, 두번째 요�
     // console.log(React.useState)
 
     const onClick = () => {
-        setCounter(counter + 1); // setCounter 함수를 사용해 클릭수 업데이트!
+        // setCounter(counter + 1); // setCounter 함수를 사용해 클릭수 업데이트!
+        setCounter((current)=> current +1); // 현재 state 기반의 증가 계산을 위한 함수 활용!(안전성 보장!)
     };
     
     return (
