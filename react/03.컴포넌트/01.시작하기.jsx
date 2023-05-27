@@ -79,12 +79,14 @@ function MyFirstReact(){
 
 } ////////////// MyFirstReact 함수 ////////////
 
-function App(){
-    const [counter, setCounter] = React.useState(0);
+// 함수형 컴포넌트는 function 키워드를 사용하여 정의됨!!
+function App(){ // 첫번째 요소 - 상태변수의 현재값, 두번째 요소 - 상태값 변경 함수
+    const [counter, setCounter] = React.useState(0); // useState는 리액트의 상태변경 훅!-> 초기값을 인자로 전달하면, 해당값으로 상태변수 초기화!
+    // useState, useEffect, useContext 등의 훅을 사용해 상태값 변경, 부작용 처리, 컨텍스트 접근 등을 간편하게 처리 가능함!
     console.log(React.useState)
 
     const onClick = () => {
-        setCounter(counter + 1);
+        setCounter(counter + 1); // setCounter 함수를 사용해 클릭수 업데이트!
     };
     
     return (
@@ -98,3 +100,4 @@ function App(){
 ReactDOM.render(
 <MyFirstReact />,
 document.querySelector("#mydiv"));
+
