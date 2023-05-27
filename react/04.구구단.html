@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>구구단 만들기 with React</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.13.1/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.13.1/umd/react-dom.production.min.js"></script>
+    <style>
+      table {
+        display: flex;
+      }
+
+      tr {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      function Gugu() {
+        const makeTable = () => {
+          // 함수형 컴포넌트에서는 화살표함수를 사용해 내부 함수를 정의하는 일정한 패턴이 있음!
+          const table = [];
+          /* 1단~9단까지의 구구단 생성 */
+          for (let x = 1; x <= 9; x++) {
+            /* 구구단 요소들을 담을 배열 생성 */
+            const row = [];
+            for (let j = 1; j <= 9; j++) {
+              row.push(React.createElement("td", null, `${x} x ${j} = ${x * j}`));
+            }
+            table.push(React.createElement("tr", null, row));
+          }
+          return table;
+        };
+
+        return (
+            React.createElement("div", null,
+            React.createElement("h3", null, "구구단"),
+            React.createElement("table", null, makeTable())
+          )
+        );
+      }
+
+      ReactDOM.render(React.createElement(Gugu), document.getElementById("root"));
+    </script>
+  </body>
+</html>
