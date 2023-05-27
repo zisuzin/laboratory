@@ -11,14 +11,19 @@
             const myObj = {
                 count: 0,
                 setCounter: function(){ 
-                    console.log(this.count); // 함수가 선언된 위치상의 count, setCounter가 this!
+                    // console.log(this.count); // 함수가 선언된 위치상의 count, setCounter가 this!
                     btn.addEventListener('click', function() { // 콜백함수의 this는 이벤트를 호출하는 btn!
-                        console.log(this);
+                        // console.log(this);
                     });
                 }
             }
 
             myObj.setCounter();
+
+            const arr = ["감자","고구마"];
+            const [firstTx,secondTx] = arr; // 구조분해
+            console.log(firstTx)
+            
         });
     </script>
 </head>
