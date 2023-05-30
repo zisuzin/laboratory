@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+            const btn = document.querySelector("#btn");
+            const myObj = {
+                count: 0,
+                setCounter: function(){ 
+                    // console.log(this.count); // 함수가 선언된 위치상의 count, setCounter가 this!
+                    btn.addEventListener('click', function() { // 콜백함수의 this는 이벤트를 호출하는 btn!
+                        // console.log(this);
+                    });
+                }
+            }
+
+            myObj.setCounter();
+
+            const arr = ["감자","고구마"];
+            const [firstTx,secondTx] = arr; // 구조분해
+            // console.log(firstTx)
+            
+        });
+    </script>
+</head>
+<body>
+    <button id="btn">Click!!</button>
+    <div id="root"></div>
+</body>
+</html>

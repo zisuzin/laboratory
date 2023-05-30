@@ -73,11 +73,32 @@ function MyFirstReact(){
             <Info idx="1" name="코알라"/> {/* Info태그에 정의된 속성들을 props 객체로 전달 */}
             <Info idx="2" name="하마"/>
             <Info idx="3" name="기린"/>
+            <App/>
         </div>
     );
 
 } ////////////// MyFirstReact 함수 ////////////
 
+// 함수형 컴포넌트는 function 키워드를 사용하여 정의됨!!
+function App(){ // 첫번째 요소 - 상태변수의 현재값, 두번째 요소 - 상태값 변경 함수
+    const [counter, setCounter] = React.useState(0); // useState는 리액트의 상태변경 훅!-> 초기값을 인자로 전달하면, 해당값으로 상태변수 초기화!
+    // useState, useEffect, useContext 등의 훅을 사용해 상태값 변경, 부작용 처리, 컨텍스트 접근 등을 간편하게 처리 가능함!
+    // console.log(React.useState)
+
+    const onClick = () => {
+        // setCounter(counter + 1); // setCounter 함수를 사용해 클릭수 업데이트!
+        setCounter((current)=> current +1); // 현재 state 기반의 증가 계산을 위한 함수 활용!(안전성 보장!)
+    };
+    
+    return (
+        <div>
+            <h3>Total clicks: {counter}</h3>
+            <button onClick={onClick}>Click me!</button>
+        </div>
+    )
+}
+
 ReactDOM.render(
 <MyFirstReact />,
 document.querySelector("#mydiv"));
+

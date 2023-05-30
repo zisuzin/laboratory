@@ -1,0 +1,35 @@
+## 화살표 함수에는 없는 것 : 함수이름, this, arguments
+
+((일반함수))
+const myFn = function(){
+
+}
+
+ ->> 일반함수의 경우, this는 함수를 호출하는 방법에 의해 결정되며 
+    함수가 실행될때 함수 스코프 내에 자기만의 this가 존재함!
+    즉, 해당 함수를 호출하는 인스턴스 자신이 this
+
+ ->> this를 bind 시키면 함수가 어떻게 호출되었는지 개의치 않고 this 를 설정할 수 있음  
+________________________________________________________________________
+
+((화살표함수))
+const myFn = () => {
+
+}
+
+ ->> 함수가 선언된 위치상에의 this를 참조함!
+
+ Ex)
+    const btn = document.querySelector("#btn);
+
+    const myObj = {
+        count: 0,
+        setCounter: function(){ 
+            console.log(this.count); // 함수가 선언된 위치상의 setCounter가 this!
+            btn.addEventListener('click', () => { // 콜백함수의 this는 이벤트를 호출하는 btn!
+                console.log(this);
+            });
+        }
+    }
+
+    myObj.setCounter();
