@@ -17,3 +17,7 @@ ul,ol{
   list-style: none;
 }
 
+.tit {
+  text-align: center;
+  color: hotpink;
+}
